@@ -6,18 +6,20 @@
 package view;
 
 import dao.UserDAO;
+
 import javax.swing.JOptionPane;
+
 import model.User;
 import controller.Room;
 import controller.Server;
 import controller.ServerThread;
 
 /**
- *
  * @author Admin
  */
-public class Admin extends javax.swing.JFrame implements Runnable{
-    private UserDAO userDAO;
+public class Admin extends javax.swing.JFrame implements Runnable {
+    private final UserDAO userDAO;
+
     /**
      * Creates new form Admin
      */
@@ -26,8 +28,8 @@ public class Admin extends javax.swing.JFrame implements Runnable{
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        jTextArea1.setEditable(false);
-        jTextArea2.setEditable(false);
+        threadRoomListView.setEditable(false);
+        messageView.setEditable(false);
         userDAO = new UserDAO();
     }
 
@@ -42,110 +44,110 @@ public class Admin extends javax.swing.JFrame implements Runnable{
 
         jTextField2 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        threadRoomListView = new javax.swing.JTextArea();
+        viewThreadButton = new javax.swing.JButton();
+        viewRoomListButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        boardLabel = new javax.swing.JLabel();
+        noticeTextField = new javax.swing.JTextField();
+        publishMessageButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jTextField3 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        messageView = new javax.swing.JTextArea();
+        userIdTextField = new javax.swing.JTextField();
+        banButton = new javax.swing.JButton();
+        warnButton = new javax.swing.JButton();
+        cancelBanButton = new javax.swing.JButton();
+        reasonComboBox = new javax.swing.JComboBox<>();
 
         jTextField2.setText("jTextField2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        threadRoomListView.setColumns(20);
+        threadRoomListView.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        threadRoomListView.setRows(5);
+        jScrollPane1.setViewportView(threadRoomListView);
 
-        jButton1.setText("Xem danh sách luồng");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        viewThreadButton.setText("Xem danh sách luồng");
+        viewThreadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                viewThreadButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Xem danh sách phòng");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        viewRoomListButton.setText("Xem danh sách phòng");
+        viewRoomListButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                viewRoomListButtonActionPerformed(evt);
             }
         });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Admin");
+        boardLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        boardLabel.setForeground(new java.awt.Color(255, 255, 255));
+        boardLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        boardLabel.setText("Admin");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(boardLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1)
+                .addComponent(boardLabel)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        noticeTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        noticeTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                noticeTextFieldKeyPressed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Phát thông báo");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        publishMessageButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        publishMessageButton.setText("Phát thông báo");
+        publishMessageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                publishMessageButtonActionPerformed(evt);
             }
         });
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        messageView.setColumns(20);
+        messageView.setRows(5);
+        jScrollPane2.setViewportView(messageView);
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton4.setText("Ban");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        banButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        banButton.setText("Ban");
+        banButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                banButtonActionPerformed(evt);
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton5.setText("Cảnh cáo");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        warnButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        warnButton.setText("Cảnh cáo");
+        warnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                warnButtonActionPerformed(evt);
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton6.setText("Huỷ Ban");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        cancelBanButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cancelBanButton.setText("Huỷ Ban");
+        cancelBanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                cancelBanButtonActionPerformed(evt);
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn lý do", "Ngôn ngữ thô tục - xúc phạm người khác", "Spam đăng nhập", "Sử dụng game với mục đích xấu", "Phát hiện rò rỉ bảo mật - tài khoản tạm thời bị khoá để kiểm tra thêm" }));
+        reasonComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        reasonComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn lý do", "Ngôn ngữ thô tục - xúc phạm người khác", "Spam đăng nhập", "Sử dụng game với mục đích xấu", "Phát hiện rò rỉ bảo mật - tài khoản tạm thời bị khoá để kiểm tra thêm" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,9 +156,9 @@ public class Admin extends javax.swing.JFrame implements Runnable{
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(62, 62, 62)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(viewThreadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(114, 114, 114)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                .addComponent(viewRoomListButton, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addGap(61, 61, 61))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -171,19 +173,19 @@ public class Admin extends javax.swing.JFrame implements Runnable{
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(noticeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton3))
+                                .addComponent(publishMessageButton))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(userIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(reasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cancelBanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5)
+                                .addComponent(warnButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(banButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -194,49 +196,48 @@ public class Admin extends javax.swing.JFrame implements Runnable{
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(viewRoomListButton)
+                    .addComponent(viewThreadButton, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(noticeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(publishMessageButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(userIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(banButton)
+                    .addComponent(warnButton)
+                    .addComponent(cancelBanButton)
+                    .addComponent(reasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String res = "";
-        String room="";
-        int i=1;
-        for(ServerThread serverThread : Server.serverThreadBus.getListServerThreads()){
-            if(serverThread.getRoom()==null)
+    private void viewThreadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewThreadButtonActionPerformed
+        StringBuilder res = new StringBuilder();
+        String room;
+        int i = 1;
+        for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+            if (serverThread.getRoom() == null)
                 room = null;
-            else room =""+ serverThread.getRoom().getID();
-            if(serverThread.getUser()!=null){
-                 res+=i+". Client-number: "+serverThread.getClientNumber()+", User-ID: "+serverThread.getUser().getID()+", Room: "+room+"\n";
-            }
-            else{
-                res+=i+". Client-number: "+serverThread.getClientNumber()+", User-ID: null, Room: "+room+"\n";
+            else room = "" + serverThread.getRoom().getId();
+            if (serverThread.getUser() != null) {
+                res.append(i).append(". Client-number: ").append(serverThread.getClientNumber()).append(", User-ID: ").append(serverThread.getUser().getID()).append(", Room: ").append(room).append("\n");
+            } else {
+                res.append(i).append(". Client-number: ").append(serverThread.getClientNumber()).append(", User-ID: null, Room: ").append(room).append("\n");
             }
             i++;
         }
-        jTextArea1.setText(res);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        threadRoomListView.setText(res.toString());
+    }//GEN-LAST:event_viewThreadButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String res = "";
-        int i=1;
+    private void viewRoomListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRoomListButtonActionPerformed
+        StringBuilder res = new StringBuilder();
+        int i = 1;
         for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
             Room room1 = serverThread.getRoom();
             String listUser = "List user ID: ";
@@ -246,129 +247,129 @@ public class Admin extends javax.swing.JFrame implements Runnable{
                 } else {
                     listUser += room1.getUser1().getUser().getID() + ", " + room1.getUser2().getUser().getID();
                 }
-                res +=i+ ". Room_ID: " + room1.getID() + ", Number of player: " + room1.getNumberOfUser() + ", " + listUser + "\n";
+                res.append(i).append(". Room_ID: ").append(room1.getId()).append(", Number of player: ").append(room1.getNumberOfUser()).append(", ").append(listUser).append("\n");
                 i++;
             }
-            
+
         }
-        jTextArea1.setText(res);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        threadRoomListView.setText(res.toString());
+    }//GEN-LAST:event_viewRoomListButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void publishMessageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publishMessageButtonActionPerformed
         sendMessage();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_publishMessageButtonActionPerformed
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        if(evt.getKeyCode()==10){
+    private void noticeTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_noticeTextFieldKeyPressed
+        if (evt.getKeyCode() == 10) {
             sendMessage();
         }
-    }//GEN-LAST:event_jTextField1KeyPressed
+    }//GEN-LAST:event_noticeTextFieldKeyPressed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void banButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_banButtonActionPerformed
         try {
-            if(jTextField3.getText().length()==0){
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập ID của User");
-                return;
-            }
-            if(jComboBox1.getSelectedIndex()<1){
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn lý do");
-                return;
-            }
-            int userId = Integer.parseInt(jTextField3.getText());
+            if (isInvalidForm()) return;
+            int userId = Integer.parseInt(userIdTextField.getText());
             User user = new User();
             user.setID(userId);
             userDAO.updateBannedStatus(user, true);
             ServerThread serverThread = Server.serverThreadBus.getServerThreadByUserID(userId);
-            serverThread.write("banned-notice,"+jComboBox1.getSelectedItem());
-            if(serverThread.getRoom()!=null){
+            serverThread.write("banned-notice," + reasonComboBox.getSelectedItem());
+            if (serverThread.getRoom() != null) {
                 Room room = serverThread.getRoom();
                 ServerThread competitorThread = room.getCompetitor(serverThread.getClientNumber());
                 room.setUsersToNotPlaying();
-                if(competitorThread!=null){
+                if (competitorThread != null) {
                     room.decreaseNumberOfGame();
                     competitorThread.write("left-room,");
                     competitorThread.setRoom(null);
                 }
                 serverThread.setRoom(null);
             }
-            Server.admin.addMessage("User có ID "+ userId+" đã bị BAN");
+            Server.admin.addMessage("User có ID " + userId + " đã bị BAN");
             serverThread.setUser(null);
-            Server.serverThreadBus.boardCast(-1, "chat-server,"+"User có ID "+ userId+" đã bị BAN");
-            JOptionPane.showMessageDialog(rootPane, "Đã BAN user "+userId);
+            Server.serverThreadBus.boardCast(-1, "chat-server," + "User có ID " + userId + " đã bị BAN");
+            JOptionPane.showMessageDialog(rootPane, "Đã BAN user " + userId);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra");
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_banButtonActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void cancelBanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBanButtonActionPerformed
         try {
-            if(jTextField3.getText().length()==0){
+            if (userIdTextField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập ID của User");
                 return;
             }
-            int userId = Integer.parseInt(jTextField3.getText());
+            int userId = Integer.parseInt(userIdTextField.getText());
             User user = new User();
             user.setID(userId);
             userDAO.updateBannedStatus(user, false);
-            jTextField3.setText("");
-            JOptionPane.showMessageDialog(rootPane, "Đã huỷ BAN user "+userId);
+            userIdTextField.setText("");
+            JOptionPane.showMessageDialog(rootPane, "Đã huỷ BAN user " + userId);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra");
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_cancelBanButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void warnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_warnButtonActionPerformed
         try {
-            if(jTextField3.getText().length()==0){
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập ID của User");
-                return;
-            }
-            if(jComboBox1.getSelectedIndex()<1){
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn lý do");
-                return;
-            }
-            int userId = Integer.parseInt(jTextField3.getText());
-            Server.serverThreadBus.sendMessageToUserID(userId, "warning-notice,"+jComboBox1.getSelectedItem());
-            JOptionPane.showMessageDialog(rootPane, "Đã cảnh cáo user "+userId);
-            
+            if (isInvalidForm()) return;
+            int userId = Integer.parseInt(userIdTextField.getText());
+            Server.serverThreadBus.sendMessageToUserID(userId, "warning-notice," + reasonComboBox.getSelectedItem());
+            JOptionPane.showMessageDialog(rootPane, "Đã cảnh cáo user " + userId);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra");
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
-    private void sendMessage(){
-        String message = jTextField1.getText();
-        if(message.length()==0) return;
-        String temp = jTextArea2.getText();
-        temp+= "Thông báo từ máy chủ : "+message+"\n";
-        jTextArea2.setText(temp);
-        jTextArea2.setCaretPosition(jTextArea2.getDocument().getLength());
-        Server.serverThreadBus.boardCast(-1,"chat-server,Thông báo từ máy chủ : "+ message);
-        jTextField1.setText("");
+    }//GEN-LAST:event_warnButtonActionPerformed
+
+    private void sendMessage() {
+        String message = noticeTextField.getText();
+        if (message.isEmpty()) return;
+        String temp = messageView.getText();
+        temp += "Thông báo từ máy chủ : " + message + "\n";
+        messageView.setText(temp);
+        messageView.setCaretPosition(messageView.getDocument().getLength());
+        Server.serverThreadBus.boardCast(-1, "chat-server,Thông báo từ máy chủ : " + message);
+        noticeTextField.setText("");
     }
+
     public void addMessage(String message) {
-        String tmp = jTextArea2.getText();
-        tmp=tmp+message+"\n";
-        jTextArea2.setText(tmp);
-        jTextArea2.setCaretPosition(jTextArea1.getDocument().getLength());
+        String tmp = messageView.getText();
+        tmp = tmp + message + "\n";
+        messageView.setText(tmp);
+        messageView.setCaretPosition(threadRoomListView.getDocument().getLength());
+    }
+
+    private boolean isInvalidForm() {
+        if (userIdTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập ID của User");
+            return true;
+        }
+        if (reasonComboBox.getSelectedIndex() < 1) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn lý do");
+            return true;
+        }
+        return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton banButton;
+    private javax.swing.JLabel boardLabel;
+    private javax.swing.JButton cancelBanButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    public static javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    public static javax.swing.JTextArea messageView;
+    private javax.swing.JTextField noticeTextField;
+    private javax.swing.JButton publishMessageButton;
+    private javax.swing.JComboBox<String> reasonComboBox;
+    private javax.swing.JTextArea threadRoomListView;
+    private javax.swing.JTextField userIdTextField;
+    private javax.swing.JButton viewRoomListButton;
+    private javax.swing.JButton viewThreadButton;
+    private javax.swing.JButton warnButton;
     // End of variables declaration//GEN-END:variables
 
     @Override
